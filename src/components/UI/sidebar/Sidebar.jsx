@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 
 function Sidebar({ open }) {
     return (
-        <div className="m-3 absolute">
+        <div className="ml-3 absolute">
 
             <AnimatePresence>
                 {open ? <motion.div
@@ -14,6 +14,7 @@ function Sidebar({ open }) {
                     className="w-[200px] h-[88vh] bg-[#0c89f7] rounded-xl p-3 flex flex-col gap-5 text-white font-semibold"
                     key="box"
                 >
+                    <Link to={'/'} className="hover:bg-white transition-all duration-300 p-2 rounded-lg hover:text-black" >Главная</Link>
                     <Link to={'/products/add'} className="hover:bg-white transition-all duration-300 p-2 rounded-lg hover:text-black" >Добавление товара</Link>
                     <Link to={'/products'} className="hover:bg-green-400 transition-all duration-300 p-2 rounded-lg" >Список товаров</Link>
                     <Link to={''} className="hover:bg-red-400 transition-all duration-300 p-2 rounded-lg" >Выйти</Link>
