@@ -5,10 +5,12 @@ import {
     updateProduct,
     deleteProduct,
     toggleProductStatus,
+    getProductsWithPagination,
 } from "../actions/productAction";
 
 const initialState = {
     products: [],
+    productOneData: null,
     loading: false,
     error: null,
     success: false,
@@ -43,7 +45,7 @@ const productSlice = createSlice({
             })
             .addCase(addProduct.fulfilled, (state, action) => {
                 state.loading = false;
-                state.products.push(action.payload);
+                state.productOneData = action.payload
                 state.success = true;
                 state.message = "Товар успешно добавлен";
             })
@@ -122,12 +124,7 @@ const productSlice = createSlice({
             })
             .addCase(toggleProductStatus.fulfilled, (state, action) => {
                 state.loading = false;
-                const index = state.products.findIndex(
-                    (product) => product.id === action.payload.id
-                );
-                if (index !== -1) {
-                    state.products[index].is_active = action.payload.is_active;
-                }
+                state.productOneData = null;
                 state.success = true;
                 state.message = "Статус товара успешно обновлен";
             })
@@ -136,7 +133,26 @@ const productSlice = createSlice({
                 state.error = action.payload;
                 state.success = false;
                 state.message = "";
+            })
+            .addCase(getProductsWithPagination.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+                state.success = false;
+                state.message = "";
+            })
+            .addCase(getProductsWithPagination.fulfilled, (state, action) => {
+                state.loading = false;
+                state.products = action.payload.products;
+                state.success = true;  
+                state.message = "Товары успешно получены с пагинацией";
+            })
+            .addCase(getProductsWithPagination.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+                state.success = false;
+                state.message = "";
             });
+
     },
 });
 

@@ -1,4 +1,3 @@
-
 import {
     Dialog,
     DialogBackdrop,
@@ -6,8 +5,17 @@ import {
     DialogTitle,
 } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { deleteProduct } from "../../../../../store/actions/productAction";
+import { useDispatch } from "react-redux";
 
-export default function ConfirmDeleteModal({ open, setOpen }) {
+export default function ConfirmDeleteModal({ open, setOpen, onDelete }) {
+
+    const dispatch = useDispatch();
+
+    const handleConfirmDelete = () => {
+        onDelete()
+        setOpen(false);
+    };
 
     return (
         <Dialog open={open} onClose={setOpen} className="relative z-10">
@@ -52,7 +60,7 @@ export default function ConfirmDeleteModal({ open, setOpen }) {
                         <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                             <button
                                 type="button"
-                                onClick={() => setOpen(false)}
+                                onClick={() => handleConfirmDelete()}
                                 className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto"
                             >
                                 Удалить

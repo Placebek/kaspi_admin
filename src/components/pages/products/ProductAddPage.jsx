@@ -7,7 +7,7 @@ import ProductMiniCard from "./UI/cards/ProductMiniCard";
 
 function ProductAddPage() {
     const dispatch = useDispatch();
-    const { products, loading, error, success, message } = useSelector(
+    const { productOneData, loading, error, success, message } = useSelector(
         (state) => state.product
     );
     const [formData, setFormData] = useState({
@@ -53,15 +53,17 @@ function ProductAddPage() {
 
         setIsLoading(true);
         try {
-            const productData = {
-                vender_code: formData.vender_code,
+            const productDataForAdd = {
+                vender_code: formData.vender_code.trim(),
                 min_price: parseInt(formData.min_price) || 0,
                 max_price: parseInt(formData.max_price) || 0,
                 step: parseInt(formData.step) || 0,
             };
 
-            const resultAction = await dispatch(addProduct(productData));
+            const resultAction = await dispatch(addProduct(productDataForAdd));
             if (addProduct.fulfilled.match(resultAction)) {
+                console.log(success, resultAction.payload);
+                
                 toast.success("Товар успешно добавлен для демпинга");
                 setFormData({
                     vender_code: "",
@@ -146,10 +148,10 @@ function ProductAddPage() {
                         aria-label="Шаг цены"
                     />
                     <div>
-                        {success && products && products.length > 0 && (
+                        {success && productOneData && (
                             <div>
                                 <ProductMiniCard
-                                    product={products[0]}
+                                    product={productOneData}
                                     open={isOpen}
                                     setOpen={setOpen}
                                 />

@@ -51,6 +51,7 @@ function ProductsListPage() {
                     "Product deleted successfully:",
                     resultAction.payload
                 );
+                fetchProducts()
             }
         } catch (error) {
             console.error("Error deleting product:", error);
@@ -59,7 +60,7 @@ function ProductsListPage() {
 
     useEffect(() => {
         fetchProducts();
-    }, [dispatch]);
+    }, []);
 
     useEffect(() => {
         const handleProductUpdate = (productData) => {
@@ -93,7 +94,7 @@ function ProductsListPage() {
                             products.map((product) => (
                                 <ProductCard
                                     key={product.id}
-                                    props={product}
+                                    product={product}
                                     onUpdate={handleUpdateProduct}
                                     onDelete={handleDeleteProduct}
                                 />

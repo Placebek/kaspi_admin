@@ -13,9 +13,13 @@ import { useDispatch } from "react-redux";
 
 export default function ProductMiniCard({ product, open, setOpen }) {
     const dispatch = useDispatch();
-
     const handleStartDemping = () => {
-        dispatch(toggleProductStatus(product.product.id));
+        const data = {
+            'id': product.id,
+            'is_active': true
+        }
+        dispatch(toggleProductStatus(data));
+        
         setOpen(false);
     }
 
