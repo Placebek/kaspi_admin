@@ -5,11 +5,19 @@ import {
     DialogTitle,
 } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { toggleProductStatus } from '../../../../../store/actions/productAction'
+import { useDispatch } from 'react-redux';
 
-export default function ConfirmPauseModal({ open, setOpen, handlePause }) {
+export default function ConfirmPauseModal({ open, setOpen, id }) {
+    const dispatch = useDispatch();
+
     const handleConfirmPause = () => {
         debugger
-        handlePause();
+        const data = {
+            'id': id,
+            'is_active': false
+        }
+        dispatch(toggleProductStatus(data))
         setOpen(false);
     };
     return (
@@ -60,7 +68,6 @@ export default function ConfirmPauseModal({ open, setOpen, handlePause }) {
                                 Запустить
                             </button>
                             <button
-                                type="button"
                                 data-autofocus
                                 onClick={() => setOpen(false)}
                                 className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto"

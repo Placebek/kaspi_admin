@@ -26,6 +26,7 @@ const productSlice = createSlice({
             state.error = null;
             state.success = false;
             state.message = "";
+            state.productOneData = null;
         },
         resetProductError: (state) => {
             state.error = null;
@@ -142,7 +143,7 @@ const productSlice = createSlice({
             })
             .addCase(getProductsWithPagination.fulfilled, (state, action) => {
                 state.loading = false;
-                state.products = action.payload.products;
+                state.products = action.payload;
                 state.success = true;  
                 state.message = "Товары успешно получены с пагинацией";
             })

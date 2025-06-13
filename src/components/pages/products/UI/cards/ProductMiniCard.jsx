@@ -8,18 +8,27 @@ import {
 } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import {toggleProductStatus} from '../../../../../store/actions/productAction'
-import { useDispatch } from "react-redux";
+import {resetProductState} from '../../../../../store/reducers/productReducer'
+import { useDispatch, useSelector } from "react-redux";
 
 
 export default function ProductMiniCard({ product, open, setOpen }) {
     const dispatch = useDispatch();
-    const handleStartDemping = () => {
+    const { productOneData } = useSelector((state) => state.product);
+    const handleStartDemping = async() => {
         const data = {
-            'id': product.id,
-            'is_active': true
+            id: product.id,
+            is_active: true
         }
-        dispatch(toggleProductStatus(data));
-        
+        await dispatch(toggleProductStatus(data));
+        dispatch(resetProductState());
+        setOpen(false);
+    }
+
+    const handleClose = () => {
+        if (productOneData) {
+            dispatch(resetProductState());
+        }
         setOpen(false);
     }
 
@@ -101,7 +110,7 @@ export default function ProductMiniCard({ product, open, setOpen }) {
                         <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                             <button
                                 type="button"
-                                onClick={() => setOpen(false)}
+                                onClick={() => handleClose()}
                                 className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto"
                             >
                                 Отложить

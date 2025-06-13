@@ -12,8 +12,8 @@ function LoginPage() {
   const [is_load, setLoad] = useState(false);
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    kaspi_email: "",
+    kaspi_password: "",
   });
 
   const handleChange = (e) => {
@@ -56,16 +56,16 @@ function LoginPage() {
                 type="email"
                 className="border-2 p-2 rounded-xl outline-none"
                 placeholder="Введите email с Kaspi"
-                name="email"
-                id="email"
+                name="kaspi_email"
+                id="kaspi_email"
                 required
                 onChange={handleChange}
               />
 
               <input
                 type="password"
-                name="password"
-                id="password"
+                name="kaspi_password"
+                id="kaspi_password"
                 required
                 className="border-2 p-2 rounded-xl outline-none"
                 placeholder="Введите пароль"
